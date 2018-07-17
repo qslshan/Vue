@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>propsData option</h1>
+<hr>
+<div id="app">
+    <hr>
+    <header></header>
+    <component :is="who"></component>
+    <button @click="changeComponent()">changeComponent</button>
+</div>
+<script type="text/javascript">
+    var header_a=Vue.extend({
+        template:`<p>{{message}}--{{a}}</p>`,
+        data:function () {
+            return{
+                message:'Hello qsls'
+            }
+
+        },
+        props:['a']
+
+    });
+    new header_a({propsData:{a:12}}).$mount('header');
+    var componentA = {
+        template: `<div style="color:green">panda from componentA</div>`
+    };
+    var componentB = {
+        template: `<div style="color:red">panda from componentB</div>`
+    };
+    var componentC = {
+        template: `<div style="color:pink">panda from componentC</div>`
+    };
+    var app = new Vue({
+        el: '#app',
+        components: {
+            "componentA":componentA,
+            "componentB":componentB,
+            "componentC":componentC
+        },
+        data:{
+            who:"componentB",
+        },
+        methods:{
+            changeComponent:function () {
+                if(this.who==="componentA")
+                    this.who="componentB";
+                else if(this.who==="componentB")
+                    this.who="componentC";
+                 else if(this.who==="componentC")
+                    this.who="componentA";
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mixins</title>
+     <script type="text/javascript" src="../assets/js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <p>今日温度:{{wendu}}度</p>
+    <p>穿衣建议:{{chuanyi}}</p>
+    <button @click="addwendu">增温</button>
+    <button @click="reduce">降温</button>
+    <p>{{num}}</p>
+    <button @click="addNum">add</button>
+</div>
+<script type="text/javascript ">
+    var addConsole={
+        updated:function(){
+           console.log("data  has changed!"+this.num);
+        }
+    };
+    Vue.mixin({
+        updated:function(){
+            console.log("whole");
+        }
+    });
+    var app=new Vue({
+        el:'#app',
+        data:{
+            num:1,
+            price:100,
+            wendu:14,
+            chuanyi:"夹克长裙"
+        },
+        computed:{
+            newPrice:function () {
+                return this.price='￥'+this.price+'元';
+
+            }
+        },
+        methods:{
+            addwendu:function () {
+                this.wendu+=5;
+            },
+            reduce:function () {
+                this.wendu-=5;
+            },
+            addNum:function () {
+                this.num++;
+
+            }
+
+        },
+        updated:function(){
+            console.log("old");
+        },
+        mixins:[addConsole],
+        watch:{
+            wendu:function (newVal,oldVal) {
+                if(newVal>=26)
+                    this.chuanyi="T恤短袖";
+                else if(newVal<26&& newVal>0)
+                    this.chuanyi="羽绒服"
+
+
+            }
+
+        }
+    })
+    app.$watch('wendu',function(){
+
+    })
+</script>
+
+</body>
+</html>

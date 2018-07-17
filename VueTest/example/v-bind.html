@@ -1,0 +1,55 @@
+<!-- 这是v-bind实例-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind.html</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-bind</h1>
+    <hr>
+    <div id="app">
+        <div>
+            本场比赛得分：{{message}}
+            <p>
+                <button v-on:click="addCount">+</button>
+                {{message}}
+                <button @click="jianCount">-</button>
+                <br>
+                <input type="text" v-on:keyup.enter="onEnter" v-model="message2">
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 0,
+                message2:1
+            },
+            methods: {
+                addCount: function () {
+                    this.message++;
+                },
+                jianCount: function () {
+                    if(this.message>0)
+                        this.message--;
+
+                },
+                onEnter:function(){
+                    this.message=this.message+parseInt(this.message2);
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

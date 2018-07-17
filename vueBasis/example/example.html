@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>example</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-3.2.1.js"></script>
+</head>
+<body>
+<h1>example</h1>
+<hr>
+<div id="app">
+    <qslshan>
+        <span slot="netUrl">{{qslshan.netUrl}}</span>
+        <span slot="netName">{{qslshan.netName}}</span>
+        <span slot="skill">{{qslshan.skill}}</span>
+    </qslshan>
+    <div>
+    <p >{{num}}</p>
+        <button @click="add()">add</button>
+    </div>
+</div>
+<template id="tep">
+    <div>
+    <p>博客地址：<slot name="netUrl"></slot></p>
+    <p>网名：<slot name="netName"></slot></p>
+    <p>技能：<slot name="skill"></slot></p>
+        </div>
+</template>
+<!--<p><button onclick="destroy()">destroy</button></p>-->
+<p><button onclick="reduce()">reduce</button></p>
+<p><button onclick="reduceOnece()">reduceOnece</button></p>
+<p><button onclick="off()">off</button></p>
+<!--<p><button onclick="tick()">changeData</button></p>-->
+<script type="text/javascript">
+    var qslshan={
+        template:"#tep"
+    }
+    var app=new Vue({
+        el:'#app',
+        data:{
+            num:1,
+            qslshan:{
+                netUrl:"http://jspang.com",
+                netName:"qslshan",
+                skill:"web前端"
+            }
+
+    },
+        components:{
+
+            "qslshan":qslshan
+    },
+        methods:{
+            add:function () {
+                this.num++;
+            }
+        }
+    });
+    app.$on("reduce",function () {
+        console.log("执行了reduce方法");
+        this.num--;
+
+    })
+
+    app.$once("reduceOnece",function () {
+        console.log("执行了reduceOnece方法");
+        this.num--;
+
+    })
+
+    function reduce() {
+        app.$emit("reduce");
+
+     }
+     function reduceOnece() {
+        app.$emit("reduceOnece");
+    }
+
+    function off() {
+        app.$off("reduce");
+
+    }
+//    var qsls=Vue.extend({
+//        template:`<h1 style="color: yellowgreen;">hello qsls {{message}}</h1>`,
+//        data:function () {
+//            return{
+//                message:"welcome"
+//            }
+//        },
+//        mounted:function () {
+//            console.log("mounted has been created");
+//        },
+//        destroyed:function () {
+//            console.log("it has been destroyed");
+//        },
+//        updated:function () {
+//            console.log("updated ")
+//        }
+//    });
+//    var vm=new qsls().$mount("#app");
+//    function destroy() {
+//        vm.$destroy();
+//    }
+//     function reload(){
+//        vm.$forceUpdate();
+//
+//     }
+//
+//     function tick() {
+//         vm.message="update message info";
+//         vm.$nextTick(function () {
+//             console.log("After message was updated ,use it ");
+//
+//         })
+//
+//     }
+
+
+
+
+</script>
+
+</body>
+</html>

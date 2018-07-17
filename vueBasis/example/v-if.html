@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>v-if&v-else&v-show</h1>
+<hr>
+<div id="app">
+    <div v-if="isLogin">hello,qsls!</div>
+    <div>
+        <ul>
+            <li v-for="item in sortItems">{{item}}</li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li v-for="(student,index) in sortStudents">{{index+1}}:{{student.name}}--{{student.age}}</li>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var app=new Vue({
+        el:'#app',
+        data:{
+           isLogin:true,
+            items:[22,7,45,33,99,18],
+            students:[
+                {name:'pangzi',age:24},
+                {name:'shuishui',age:22},
+                {name:'qsls',age:20}
+            ]
+        },
+        computed:{
+            sortItems:function(){
+                return this.items.sort(sortNumber);
+            },
+            sortStudents:function(){
+                return sortByKey(this.students,'age');
+            }
+        }
+    });
+    function sortNumber(a,b) {
+        return a-b;
+    }
+    //数组对象排序
+    function sortByKey(array,key) {
+        return array.sort(function(a,b){
+            var x=a[key];
+            var y=b[key];
+            return ((x<y)?-1:(x>y)?1:0);
+        })
+
+    }
+
+</script>
+
+</body>
+</html>
