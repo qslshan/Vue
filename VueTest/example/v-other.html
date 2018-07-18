@@ -1,4 +1,5 @@
-<!-- 这是v-other实例 -->
+<!-- 这是v-other实例  
+v-pre-->
 
 
 <!DOCTYPE html>
@@ -16,36 +17,22 @@
     <h1>v-other</h1>
     <hr>
     <div id="app">
-        <div>
-            本场比赛得分：{{message}}
-            <p>
-                <button v-on:click="addCount">+</button>
-                {{message}}
-                <button @click="jianCount">-</button>
-                <br>
-                <input type="text" v-on:keyup.enter="onEnter" v-model="message2">
-            </p>
-        </div>
+        <div v-pre>{{message}}</div>
+        <div v-cloak>渲染完成后才显示</div>
+        <div v-once>只渲染一次：{{message}}</div>
+        <div><input type="text" v-model="message"></div>
+        <div>{{message}}</div>
+      
     </div>
     <script type="text/javascript">
         var app = new Vue({
             el: '#app',
             data: {
-                message: 0,
+                message: 'Hello v-other',
                 message2:1
             },
             methods: {
-                addCount: function () {
-                    this.message++;
-                },
-                jianCount: function () {
-                    if(this.message>0)
-                        this.message--;
-
-                },
-                onEnter:function(){
-                    this.message=this.message+parseInt(this.message2);
-                }
+               
             }
         })
     </script>
